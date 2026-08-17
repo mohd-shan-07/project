@@ -1,0 +1,428 @@
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  pointer-events: none; /* Let clicks pass through to cinematic container */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 4vw; /* Generous responsive padding from edges */
+  color: var(--color-text);
+  overflow: hidden;
+}
+
+/* Base styles for animated elements */
+.hero-overlay__eyebrow,
+.hero-overlay__headline,
+.hero-overlay__description,
+.hero-overlay__cta,
+.hero-overlay__stats-block,
+.hero-overlay__scroll-indicator,
+.hero-overlay__bottom-right {
+  opacity: 0;
+  will-change: opacity, transform;
+}
+
+/* Staggered entrance animations */
+.hero-overlay.is-loaded .hero-overlay__eyebrow {
+  animation: slideFadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
+}
+
+.hero-overlay.is-loaded .hero-overlay__headline {
+  animation: slideFadeUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
+}
+
+.hero-overlay.is-loaded .hero-overlay__description {
+  animation: slideFadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards;
+}
+
+.hero-overlay.is-loaded .hero-overlay__cta {
+  animation: slideFadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.8s forwards;
+}
+
+.hero-overlay.is-loaded .hero-overlay__stats-block {
+  animation: fadeSlideLeft 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.7s forwards;
+}
+
+.hero-overlay.is-loaded .hero-overlay__scroll-indicator {
+  animation: slideFadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) 1s forwards;
+}
+
+.hero-overlay.is-loaded .hero-overlay__bottom-right {
+  animation: fadeSlideLeft 1s cubic-bezier(0.16, 1, 0.3, 1) 1.2s forwards;
+}
+
+@keyframes slideFadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeSlideLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* --------------------------------------------------
+   1. LEFT CONTENT
+-------------------------------------------------- */
+.hero-overlay__left {
+  position: absolute;
+  top: 16vh; /* Pulled up to reduce the gap below the logo */
+  left: 34px; /* Visually aligned with the 'P' in the logo */
+  transform: none; /* Removed vertical centering to guarantee it never overlaps the top logo */
+  max-width: 650px; /* Increased to prevent IMPOSSIBLE TO from wrapping */
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem; /* Reduced slightly to pull the whole stack up */
+}
+
+.hero-overlay__eyebrow {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  color: var(--color-text-muted);
+}
+
+.hero-overlay__headline {
+  font-size: clamp(3rem, 5.5vw, 6.5rem);
+  font-weight: 900;
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  margin: 0;
+  text-transform: uppercase;
+  white-space: nowrap; /* Forces text to stay on one line where possible */
+}
+
+.hero-overlay__accent {
+  color: var(--color-accent);
+}
+
+.hero-overlay__description {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #aaaaaa;
+  margin: 0 0 1rem 0;
+  font-weight: 400;
+  white-space: normal; /* Allow description to wrap normally */
+}
+
+.hero-overlay__cta {
+  pointer-events: auto;
+  align-self: flex-start;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-overlay__cta::before {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: -10px;
+  width: 30px;
+  height: 30px;
+  background: var(--color-accent);
+  filter: blur(15px);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.hero-overlay__cta:hover {
+  border-color: var(--color-accent);
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.hero-overlay__cta:hover::before {
+  opacity: 0.3;
+}
+
+.hero-overlay__cta-arrow {
+  font-size: 1.1rem;
+  font-weight: 300;
+  transition: transform 0.3s ease;
+}
+
+.hero-overlay__cta:hover .hero-overlay__cta-arrow {
+  transform: translate(2px, -2px);
+}
+
+/* --------------------------------------------------
+   2. RIGHT CONTENT
+-------------------------------------------------- */
+.hero-overlay__right {
+  position: absolute;
+  top: 50%;
+  right: 34px;
+  transform: translateY(-50%);
+}
+
+.hero-overlay__stats-block {
+  position: relative;
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.hero-overlay__stats-bracket {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-color: rgba(255, 255, 255, 0.2);
+  border-style: solid;
+}
+
+.hero-overlay__stats-bracket--tl { top: 0; left: 0; border-width: 1px 0 0 1px; }
+.hero-overlay__stats-bracket--tr { top: 0; right: 0; border-width: 1px 1px 0 0; }
+.hero-overlay__stats-bracket--bl { bottom: 0; left: 0; border-width: 0 0 1px 1px; }
+.hero-overlay__stats-bracket--br { bottom: 0; right: 0; border-width: 0 1px 1px 0; }
+
+.hero-overlay__stat {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+}
+
+.hero-overlay__stat-number {
+  font-size: 2.2rem;
+  font-weight: 800;
+  line-height: 1;
+  color: #ffffff;
+  margin-bottom: 0.2rem;
+}
+
+.hero-overlay__stat-label {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: #888888;
+}
+
+.hero-overlay__stat-divider {
+  width: 100%;
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* --------------------------------------------------
+   3. SCROLL INDICATOR
+-------------------------------------------------- */
+.hero-overlay__scroll-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+  margin-top: 0.5rem; /* Reduced to pull the scroll indicator up */
+}
+
+.hero-overlay__scroll-text {
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--color-text-muted);
+}
+
+.hero-overlay__scroll-line-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 10px; /* Align with text */
+}
+
+.hero-overlay__scroll-line {
+  width: 1px;
+  height: 40px;
+  background-color: var(--color-accent);
+  opacity: 0.5;
+}
+
+.hero-overlay__scroll-arrow {
+  color: var(--color-accent);
+  font-size: 0.7rem;
+  margin-top: 5px;
+  animation: bounceDown 2s infinite ease-in-out;
+}
+
+@keyframes bounceDown {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(8px); }
+}
+
+
+/* --------------------------------------------------
+   4. BOTTOM RIGHT
+-------------------------------------------------- */
+.hero-overlay__bottom-right {
+  position: absolute;
+  bottom: 8vh;
+  right: 34px;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+
+/* --------------------------------------------------
+   RESPONSIVE DESIGN (MOBILE)
+-------------------------------------------------- */
+@media (max-width: 1024px) {
+  .hero-overlay__left {
+    left: 24px;
+    top: 15vh;
+  }
+  .hero-overlay__right {
+    right: 24px;
+  }
+  .hero-overlay__headline {
+    font-size: clamp(2.5rem, 6vw, 4rem);
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-overlay {
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+  }
+  
+  /* Left Content: Stack neatly at the top without crossing the center line too much */
+  .hero-overlay__left {
+    position: relative;
+    top: 0;
+    left: 0;
+    transform: none;
+    max-width: 100%;
+    padding: 24vh 1.5rem 0 1.5rem; /* Pushed further down */
+    gap: 1.2rem;
+    z-index: 2;
+    align-items: center; /* Center flex items horizontally */
+    text-align: center; /* Center text */
+  }
+
+  .hero-overlay__eyebrow {
+    font-size: 0.6rem;
+  }
+
+  .hero-overlay__headline {
+    font-size: clamp(2.2rem, 9vw, 3rem);
+    white-space: normal; /* Allow controlled wrapping */
+    line-height: 0.95;
+    max-width: 320px; /* Restrict width to avoid face overlap */
+    margin: 0 auto; /* Center the max-width container */
+  }
+
+  .hero-overlay__description {
+    font-size: 0.85rem;
+    max-width: 260px;
+    margin: 0 auto 0.5rem auto; /* Center and preserve bottom margin */
+  }
+  
+  .hero-overlay__cta {
+    padding: 0.8rem 1.5rem;
+    font-size: 0.65rem;
+    align-self: center; /* Override desktop flex-start */
+  }
+
+  /* Scroll Indicator: Keep clean below CTA */
+  .hero-overlay__scroll-indicator {
+    margin-top: 2.5rem; /* Significantly increased to guarantee it sits safely below the CTA */
+    align-items: center; /* Center the vertical line and text */
+    width: 100%; /* Force full width so internal centering aligns with the screen center */
+    flex-shrink: 0; /* Prevent flexbox from compressing it into the button */
+  }
+  
+  /* Right Content (Statistics): Reformat into horizontal bottom bar */
+  .hero-overlay__right {
+    position: relative;
+    top: auto;
+    right: auto;
+    transform: none;
+    padding: 0 1.5rem 2rem 1.5rem;
+    width: 100%;
+    margin-top: auto;
+    z-index: 2;
+  }
+
+  .hero-overlay__stats-block {
+    flex-direction: row; /* Horizontal columns */
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0 0 0;
+    gap: 0.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .hero-overlay__stats-bracket {
+    display: none; /* Hide brackets for clean minimal mobile look */
+  }
+
+  .hero-overlay__stat {
+    align-items: center; /* Center horizontally */
+    text-align: center; /* Center text */
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .hero-overlay__stat-number {
+    font-size: 1.4rem;
+    margin-bottom: 0.2rem;
+  }
+  
+  .hero-overlay__stat-label {
+    font-size: 0.45rem;
+    line-height: 1.3;
+    max-width: 80px;
+    margin: 0 auto;
+  }
+  
+  .hero-overlay__stat-divider {
+    width: 1px;
+    height: 30px;
+    margin: 0 0.5rem;
+  }
+
+  /* Hide category text on mobile to reduce clutter */
+  .hero-overlay__bottom-right {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-overlay__headline {
+    font-size: 2.2rem;
+  }
+  .hero-overlay__stat-number {
+    font-size: 1.2rem;
+  }
+}

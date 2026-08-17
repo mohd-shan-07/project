@@ -1,0 +1,57 @@
+.scroll-indicator {
+  position: absolute;
+  bottom: 4rem;
+  left: 4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Align to left edge */
+  gap: 1rem;
+  z-index: 10;
+  transition: opacity 0.8s ease, transform 0.8s ease;
+  pointer-events: none;
+}
+
+.scroll-indicator.hidden {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.scroll-indicator__text {
+  font-size: 0.75rem;
+  letter-spacing: 0.2em; /* Subtle letter spacing */
+  line-height: 1.4;
+  color: var(--color-text-muted);
+}
+
+.scroll-indicator__arrow {
+  font-size: 0.9rem; /* Tiny downward arrow */
+  color: var(--color-accent); /* Use gold accent for tiny decorative marker */
+  animation: subtleBounce 2.5s infinite ease-in-out;
+}
+
+/* Very subtle animation */
+@keyframes subtleBounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(4px);
+  }
+}
+
+@media (max-width: 768px) {
+  .scroll-indicator {
+    bottom: 22px;
+    left: 20px;
+    gap: 0.5rem;
+  }
+
+  .scroll-indicator__text {
+    font-size: 8px;
+    letter-spacing: 0.16em;
+  }
+
+  .scroll-indicator__arrow {
+    font-size: 10px;
+  }
+}

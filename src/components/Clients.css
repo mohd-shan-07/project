@@ -1,0 +1,234 @@
+.clients-section {
+  width: 100%;
+  background-color: #000;
+  color: #fff;
+  padding: 2rem 0 6rem 0; /* Reduced top padding from 8rem to 2rem */
+  font-family: var(--font-primary, sans-serif);
+  position: relative;
+  z-index: 10;
+  overflow: hidden;
+}
+
+/* ----------------------------------
+   TOP ROW: TEXT & ACTION
+---------------------------------- */
+.clients-top-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 4rem;
+  padding: 0 24px;
+  gap: 2rem;
+}
+
+.clients-text {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.clients-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #aaaaaa;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+}
+
+.label-dot {
+  width: 6px;
+  height: 6px;
+  background-color: var(--color-accent, #F5A000);
+  border-radius: 50%;
+}
+
+.clients-heading {
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin: 0 0 1.5rem 0;
+  color: #fff;
+}
+
+.clients-heading .highlight {
+  color: var(--color-accent, #F5A000);
+}
+
+.clients-text-divider {
+  width: 40px;
+  height: 2px;
+  background-color: rgba(245, 160, 0, 0.5); /* subtle orange line */
+  margin-bottom: 1.5rem;
+}
+
+.clients-description {
+  font-size: 1rem;
+  line-height: 1.6;
+  font-weight: 400;
+  color: #aaaaaa;
+  margin: 0;
+  max-width: 480px;
+}
+
+/* Action Button on Right */
+.clients-action {
+  flex: 0 0 auto;
+  margin-bottom: 1rem; /* alignment tweak */
+}
+
+.clients-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 28px;
+  border-radius: 40px;
+  background-color: transparent;
+  color: var(--color-accent, #F5A000);
+  border: 1px solid rgba(245, 160, 0, 0.4);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.clients-btn:hover {
+  background-color: rgba(245, 160, 0, 0.1);
+  border-color: var(--color-accent, #F5A000);
+}
+
+.clients-btn .arrow {
+  font-size: 1.2rem;
+  transition: transform 0.3s ease;
+}
+
+.clients-btn:hover .arrow {
+  transform: translateX(4px);
+}
+
+/* ----------------------------------
+   BOTTOM ROW: HORIZONTAL SHOWCASE
+---------------------------------- */
+.clients-bottom-row {
+  width: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+.clients-horizontal-wrapper {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  background-color: var(--color-accent, #F5A000);
+  border: none;
+  border-radius: 0;
+  padding: 1rem 0;
+  animation: scrollMarquee 40s linear infinite;
+  will-change: transform;
+}
+
+.clients-horizontal-wrapper:hover {
+  animation-play-state: paused;
+}
+
+@keyframes scrollMarquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-33.333333%);
+  }
+}
+
+.client-horizontal-cell {
+  flex: 0 0 180px; /* Fixed width for each logo cell */
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+}
+
+.client-separator {
+  flex: 0 0 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.8;
+}
+
+.separator-dot {
+  width: 4px;
+  height: 4px;
+  background-color: #000000;
+  border-radius: 50%;
+}
+
+.client-logo-wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.4s ease, filter 0.4s ease;
+  transform-origin: center;
+  opacity: 0.9;
+  filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.1));
+  pointer-events: none; /* Prevent dragging the image itself */
+}
+
+/* Logo specific overrides */
+.client-logo {
+  width: 100%;
+  height: 100%;
+  max-width: 120px;
+  object-fit: contain;
+}
+
+/* Hover Interaction */
+.client-horizontal-cell:hover .client-logo-wrapper {
+  transform: scale(1.08);
+  opacity: 1;
+  filter: drop-shadow(0 0 12px rgba(0, 0, 0, 0.25));
+}
+
+
+/* ----------------------------------
+   RESPONSIVE DESIGN
+---------------------------------- */
+@media (max-width: 1024px) {
+  .clients-section {
+    padding: 2rem 20px 4rem 20px;
+  }
+  .clients-top-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .clients-section {
+    padding: 1.5rem 16px 3rem 16px;
+  }
+  .clients-heading {
+    font-size: clamp(2rem, 8vw, 2.5rem);
+  }
+  .client-horizontal-cell {
+    flex: 0 0 130px;
+    height: 60px;
+  }
+  .clients-horizontal-wrapper {
+    padding: 0.75rem 0;
+  }
+  .client-separator {
+    flex: 0 0 20px;
+  }
+}

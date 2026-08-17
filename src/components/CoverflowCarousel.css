@@ -1,0 +1,213 @@
+.coverflow-container {
+  position: relative;
+  width: 100%;
+  height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2rem;
+  overflow: hidden; /* Hide anything pushing out too far horizontally */
+  touch-action: pan-y;
+}
+
+/* Nav Buttons */
+.coverflow-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 20;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: transparent;
+  border: 1px solid var(--color-accent, #F5A000);
+  color: var(--color-accent, #F5A000);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.coverflow-nav-btn:hover:not(.disabled) {
+  background: var(--color-accent, #F5A000);
+  color: #000;
+}
+
+.coverflow-nav-btn.disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.coverflow-nav-btn.prev {
+  left: 20px;
+}
+
+.coverflow-nav-btn.next {
+  right: 20px;
+}
+
+/* Track */
+.coverflow-track {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.coverflow-card {
+  --coverflow-gap: 180px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  /* translate(-50%, -50%) will be combined with the dynamic translateX in inline styles */
+  margin-top: -240px; /* half of height */
+  width: 360px;
+  height: 480px;
+  border-radius: 16px;
+  overflow: hidden;
+  transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), z-index 0.6s, filter 0.6s;
+  cursor: pointer;
+  background-color: #111;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  border: 1px solid transparent;
+}
+
+.coverflow-card.active {
+  border-color: rgba(245, 160, 0, 0.4);
+  box-shadow: 0 0 60px -15px rgba(245, 160, 0, 0.4), 0 20px 40px rgba(0, 0, 0, 0.8);
+  cursor: default;
+}
+
+.coverflow-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.coverflow-card__overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.coverflow-card:not(.active):hover .coverflow-card__overlay {
+  opacity: 0.3;
+}
+
+.coverflow-card.active .coverflow-card__overlay {
+  opacity: 0;
+}
+
+/* Video specific styles to create a 9:16 Reel ratio */
+.coverflow-card--video {
+  width: 300px;
+  height: 533px;
+  margin-top: -266.5px; /* Half of 533px to keep it vertically centered */
+}
+
+/* Play button overlay for video */
+.coverflow-card__play-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.5);
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 5;
+  transition: all 0.3s ease;
+  padding-left: 6px; /* Offset to visually center the play triangle */
+}
+
+.coverflow-card__play-btn:hover {
+  background-color: rgba(245, 160, 0, 0.8);
+  border-color: var(--color-accent, #F5A000);
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+/* Video Modal */
+.video-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.9);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(10px);
+}
+
+.video-modal-close {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  background: transparent;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  z-index: 10001;
+  padding: 8px;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.video-modal-close:hover {
+  transform: scale(1.1);
+  color: var(--color-accent, #F5A000);
+}
+
+.video-modal-content {
+  position: relative;
+  width: auto;
+  max-width: 100%;
+  height: 90vh;
+  aspect-ratio: 9 / 16;
+  display: flex;
+  justify-content: center;
+}
+
+.video-modal-player {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+}
+
+/* Hide fullscreen button in webkit browsers */
+video::-webkit-media-controls-fullscreen-button {
+  display: none !important;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .coverflow-card {
+    --coverflow-gap: 80px;
+    width: 240px;
+    height: 320px;
+    margin-top: -160px;
+  }
+  .coverflow-card--video {
+    width: 200px;
+    height: 355px;
+    margin-top: -177.5px;
+  }
+  .coverflow-container {
+    height: 420px;
+  }
+  .coverflow-nav-btn {
+    display: none; /* Hide arrows on mobile, let them tap */
+  }
+}

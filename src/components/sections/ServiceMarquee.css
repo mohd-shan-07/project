@@ -1,0 +1,136 @@
+.service-marquee {
+  width: 100vw;
+  height: 50px; /* Dramatically reduced to match reference */
+  margin-top: 2.5rem; /* Reduced breathing space between the hero and the ribbon */
+  background-color: #d08800; /* Darkened version of the accent color */
+  border-top: 1px solid rgba(0, 0, 0, 0.1); /* Subtle dark border for contrast */
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  position: relative;
+  z-index: 10;
+}
+
+.service-marquee__track {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  animation: scrollMarquee 40s linear infinite;
+  will-change: transform;
+}
+
+.service-marquee:hover .service-marquee__track {
+  animation-play-state: paused;
+}
+
+.service-marquee__cell {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0 3rem; /* Horizontal padding for each cell */
+  border-right: 1px solid rgba(0, 0, 0, 0.15); /* Black vertical divider */
+  height: 50px; /* Match container height */
+}
+
+.service-marquee__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #000000; /* Solid black icon for contrast on yellow */
+}
+
+.service-marquee__text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem; /* Tighter gap to fit the smaller height */
+  justify-content: center;
+}
+
+.service-marquee__title {
+  font-size: 0.75rem;
+  font-weight: 600; /* Increased weight slightly for better legibility on yellow */
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: #000000; /* Solid black text */
+  line-height: 1;
+}
+
+.service-marquee__desc {
+  font-size: 0.6rem;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.7); /* Muted black description */
+  letter-spacing: 0.05em;
+  line-height: 1;
+}
+
+.service-marquee__separator {
+  color: #000000; /* Black accent dot */
+  font-size: 0.4rem; /* Small 4-point diamond/star style */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 3rem; /* Spacing before the next cell */
+}
+
+/* Because we duplicate the array 3 times in the React component, 
+   we shift by -33.3333% to seamlessly loop through exactly one entire set */
+@keyframes scrollMarquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-33.333333%);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .service-marquee {
+    height: 45px; /* Tablet: 45px */
+    margin-top: 1.5rem; /* Tighter gap on tablet */
+  }
+  .service-marquee__cell {
+    height: 45px;
+    padding: 0 2rem;
+    gap: 0.8rem;
+  }
+  .service-marquee__separator {
+    margin-left: 2rem;
+  }
+  .service-marquee__title {
+    font-size: 0.7rem;
+  }
+  .service-marquee__desc {
+    font-size: 0.55rem;
+  }
+  .service-marquee__icon svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .service-marquee {
+    height: 40px; /* Mobile: 40px */
+    margin-top: 1rem; /* Very tight gap on mobile */
+  }
+  .service-marquee__cell {
+    height: 40px;
+    padding: 0 1.5rem;
+    gap: 0.6rem;
+  }
+  .service-marquee__separator {
+    margin-left: 1.5rem;
+  }
+  .service-marquee__title {
+    font-size: 0.65rem;
+  }
+  .service-marquee__desc {
+    font-size: 0.5rem;
+  }
+  .service-marquee__icon svg {
+    width: 18px;
+    height: 18px;
+  }
+}
