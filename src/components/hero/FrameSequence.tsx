@@ -24,7 +24,6 @@ const FrameSequence: React.FC<FrameSequenceProps> = ({ scrollTriggerRef }) => {
   const [loadedCount, setLoadedCount] = useState(0);
   const [isFullyLoaded, setIsFullyLoaded] = useState(false);
   const [showPreloader, setShowPreloader] = useState(true);
-
   // Generate frame path: 2 -> 002.png
   const getFramePath = (index: number) => {
     const paddedIndex = String(index).padStart(3, '0');
@@ -35,7 +34,6 @@ const FrameSequence: React.FC<FrameSequenceProps> = ({ scrollTriggerRef }) => {
   useEffect(() => {
     let isCancelled = false;
     let localLoadedCount = 0;
-
     const loadImages = async () => {
       const loadPromises = [];
 

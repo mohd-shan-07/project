@@ -110,5 +110,69 @@
   .navbar__mobile-menu {
     display: block;
     font-size: 18px;
+    z-index: 10001;
   }
+}
+
+/* Mobile Menu Overlay */
+.navbar__mobile-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(5, 5, 5, 0.98);
+  backdrop-filter: blur(15px);
+  z-index: 10000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.navbar__mobile-overlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.navbar__mobile-close {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  background: transparent;
+  border: none;
+  color: #aaaaaa;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 8px;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.navbar__mobile-close:hover {
+  color: #ffffff;
+  transform: scale(1.1);
+}
+
+.navbar__mobile-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.navbar__mobile-links a {
+  text-decoration: none;
+  color: #dddddd;
+  font-size: 1.25rem;
+  font-weight: 400;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  transition: color 0.3s ease, letter-spacing 0.3s ease;
+}
+
+.navbar__mobile-links a:hover {
+  color: var(--color-accent);
+  letter-spacing: 0.35em;
 }
