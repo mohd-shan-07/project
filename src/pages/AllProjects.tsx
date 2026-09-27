@@ -181,6 +181,7 @@ const AllProjects: React.FC = () => {
                     src={poster.optimizedUrl} 
                     alt={poster.title} 
                     className="ap-grid-card__image" 
+                    decoding="async"
                     onError={(e) => {
                       e.currentTarget.src = poster.rawUrl;
                     }}
