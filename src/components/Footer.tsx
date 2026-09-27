@@ -112,7 +112,7 @@ const Footer: React.FC = () => {
               <li>
                 <a href="#">
                   <MapPin size={16} strokeWidth={1.5} className="contact-icon" />
-                  Kollam, Kerala, India 
+                  Palakkad, Kerala, India 
                   <ArrowUpRight size={14} className="link-arrow ml-auto"/>
                 </a>
               </li>
